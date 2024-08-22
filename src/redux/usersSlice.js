@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: "users",
   initialState: [],
   reducers: {
-    fetchUser: (state, action) => {
+    fetchUsers: (state, action) => {
       return action.payload;
     }
   }
