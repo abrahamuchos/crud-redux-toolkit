@@ -14,7 +14,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addProduct, getProducts } from "../redux/productsSlice.js";
+import { addProduct, getProducts, updateProduct } from "../redux/productsSlice.js";
 
 
 export default function ProductList() {
@@ -22,6 +22,11 @@ export default function ProductList() {
   const products = useSelector(state => state.products)
   const dispatch = useDispatch();
   const [newProductName, setNewProductName] = useState(/**@type {string}*/'');
+  const [editProduct, setEditProduct] = useState(/**@type {{id: number|null, name: string|null, price: number|null}} */ {})
+  const [editedProduct, setEditedProduct] = useState(/**@type {{id: number|null, isEdited: boolean}} */{
+    id: null,
+    isEdited: false
+  });
 
   useEffect(() => {
     axios.get('http://localhost:3001/products')
@@ -45,14 +50,28 @@ export default function ProductList() {
     //Send to backend
     axios.post('http://localhost:3001/products', newProduct)
       .then(res => {
-        console.log('Successful')
+        alert('Product was created')
         setNewProductName('');
       }).catch(e => {
-      console.error('Error => ', e);
+      alert('Ok Houston, we have a problem. Product did not created')
+      console.error(e);
     });
   };
+  /**
+   * Simulate update product with use redux
+   */
   const handleUpdateProduct = () => {
-
+    dispatch(updateProduct(editProduct));
+    axios.put(`http://localhost:3001/products/${editProduct.id}`, editProduct)
+      .then(res => {
+        setEditedProduct({id: null, isEdited: false})
+        setEditProduct({id: null, name: null, price: null});
+        alert('Product was updated')
+      })
+      .catch(e =>{
+        alert('Ok Houston, we have a problem. Product did not updated')
+        console.error(e);
+      })
   };
   const handleDeleteProduct = () => {
 
@@ -64,8 +83,42 @@ export default function ProductList() {
       <h3>Lista de Productos</h3>
       <ul>
         {products.data.map(product => (
-          <li key={product.id}>
-            {product.name} - ${product.price}
+          <li key={product.id} style={{marginBottom: '15px', listStyle: "none"}}>
+
+            <div style={{display: "flex", justifyContent: 'space-around'}}>
+              {editedProduct.id === product.id && editedProduct.isEdited ?
+                <>
+                  <input type="text"
+                         value={editProduct.name ?? product.name}
+                         onChange={(e) => setEditProduct({
+                           id: product.id,
+                           name: e.target.value,
+                           price: product.price
+                         })}
+                  />
+                  <div style={{display: "flex", gap: '10px'}}>
+                    <button onClick={handleUpdateProduct}>
+                      Actualizar
+                    </button>
+                    <button onClick={() => setEditedProduct({id: null, isEdited: false})}>
+                      Cancelar
+                    </button>
+                  </div>
+                </>
+                : <>
+                  <span>{product.name} - ${product.price}</span>
+                  <div style={{display: "flex", gap: '10px'}}>
+                    <button onClick={() => setEditedProduct({id: product.id, isEdited: true})}>
+                      Editar
+                    </button>
+                    <button>Eliminar</button>
+                  </div>
+                </>
+
+              }
+            </div>
+
+
           </li>
         ))}
       </ul>
@@ -78,6 +131,8 @@ export default function ProductList() {
           Agregar Producto
         </button>
       </aside>
+
+
     </>
   );
 }
