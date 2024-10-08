@@ -92,16 +92,17 @@ export default function ProductList() {
 
   return (
     <>
-      <h2>CRUD Productos</h2>
-      <h3>Lista de Productos</h3>
+      <h2 className='text-3xl font-bold text-center mb-10 mt-5'>CRUD Productos</h2>
+      <h2 className='text-2xl text-center'>Lista de Productos</h2>
+
       <ul>
         {products.data.map(product => (
           <li key={product.id} style={{marginBottom: '15px', listStyle: "none"}}>
 
-            <div style={{display: "flex", justifyContent: 'space-around'}}>
+            <div className="grid grid-cols-2">
               {editedProduct.id === product.id && editedProduct.isEdited ?
                 <>
-                  <input type="text"
+                  <input type="text" className='input w-[40%]'
                          value={editProduct.name ?? product.name}
                          onChange={(e) => setEditProduct({
                            id: product.id,
@@ -109,22 +110,22 @@ export default function ProductList() {
                            price: product.price
                          })}
                   />
-                  <div style={{display: "flex", gap: '10px'}}>
-                    <button onClick={handleUpdateProduct}>
+                  <div className='text-end'>
+                    <button className='btn-primary mr-5' onClick={handleUpdateProduct}>
                       Actualizar
                     </button>
-                    <button onClick={() => setEditedProduct({id: null, isEdited: false})}>
+                    <button className='btn-secondary' onClick={() => setEditedProduct({id: null, isEdited: false})}>
                       Cancelar
                     </button>
                   </div>
                 </>
                 : <>
                   <span>{product.name} - ${product.price}</span>
-                  <div style={{display: "flex", gap: '10px'}}>
-                    <button onClick={() => setEditedProduct({id: product.id, isEdited: true})}>
+                  <div className='text-end'>
+                    <button className='btn-secondary mr-5' onClick={() => setEditedProduct({id: product.id, isEdited: true})}>
                       Editar
                     </button>
-                    <button onClick={()=> handleDeleteProduct(product.id)}>
+                    <button className='btn-danger' onClick={()=> handleDeleteProduct(product.id)}>
                       Eliminar
                     </button>
                   </div>
@@ -137,12 +138,14 @@ export default function ProductList() {
           </li>
         ))}
       </ul>
-      <aside>
-        <input type="text"
+
+      <aside className='flex justify-center items-center mt-10'>
+        <input type="text" className='input w-[50%] mb-2'
+               placeholder='Nombre del producto'
                value={newProductName}
                onChange={(e) => setNewProductName(e.target.value)}
         />
-        <button onClick={handleCreateProduct} disabled={!newProductName}>
+        <button className='btn-primary ml-5' onClick={handleCreateProduct} disabled={!newProductName}>
           Agregar Producto
         </button>
       </aside>

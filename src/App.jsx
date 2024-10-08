@@ -7,11 +7,16 @@ function App() {
 
   return (
     <>
-      <h1>CRUD Redux Toolkit</h1>
-      <UserList/>
-      <br/>
-      <hr/>
-      <ProductList/>
+      <main className='px-5 py-10
+       md:py-7
+       lg:px-[200px]'
+      >
+        <h1 className="text-3xl font-bold text-center mb-10">CRUD Redux Toolkit</h1>
+        <UserList/>
+        <br/>
+        <hr/>
+        <ProductList/>
+      </main>
     </>
   )
 }
