@@ -45,6 +45,7 @@ export default function UserList() {
         {users.map(user => (
           <li key={user.id}>
             {user.name}
+            <span style={{padding: '10px'}}></span>
             {user.address.geo.lat}
           </li>
         ))}

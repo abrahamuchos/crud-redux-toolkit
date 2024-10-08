@@ -29,6 +29,16 @@
       "id": 30,
       "name": "Producto 30",
       "price": 3000
+    },
+    {
+      "id": 1728401623496,
+      "name": "Producto prueba",
+      "price": 0
+    },
+    {
+      "id": 1728401755777,
+      "name": "Prueba again",
+      "price": 0
     }
   ]
 }
