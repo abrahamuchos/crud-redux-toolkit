@@ -40,16 +40,28 @@ export default function UserList() {
 
   return (
     <>
-      <h2>Lista de usuarios de JSON Placeholder</h2>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.name}
-            <span style={{padding: '10px'}}></span>
-            {user.address.geo.lat}
-          </li>
-        ))}
-      </ul>
+      <h2 className='text-2xl text-center'>Lista de usuarios de JSON Placeholder</h2>
+
+      <table className='border-collapse border border-slate-400 w-full text-sm'>
+        <thead className='bg-slate-50'>
+          <tr>
+            <th className='border border-slate-300 text-slate-900 text-center uppercase font-semibold p-4'>Full Name</th>
+            <th className='border border-slate-300 text-slate-900 text-center uppercase font-semibold p-4'>Latitude</th>
+            <th className='border border-slate-300 text-slate-900 text-center uppercase font-semibold p-4'>Longitude</th>
+          </tr>
+        </thead>
+        <tbody>
+        {
+          users.map(user => (
+            <tr key={user.id}>
+              <td className='border border-slate-300 p-3 text-slate-500'>{user.name}</td>
+              <td className='border border-slate-300 p-3 text-slate-500'>{user.address.geo.lat}</td>
+              <td className='border border-slate-300 p-3 text-slate-500'>{user.address.geo.lng}</td>
+            </tr>
+          ))
+        }
+        </tbody>
+      </table>
 
     </>
   );
