@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Producto 1",
+      "price": 3000
+    },
+    {
+      "id": 2,
+      "name": "Producto 2",
+      "price": 3000
+    },
+    {
+      "id": 3,
+      "name": "Producto 31",
+      "price": 3000
+    },
+    {
+      "id": 4,
+      "name": "Producto 41",
+      "price": 3000
+    },
+    {
+      "id": 5,
+      "name": "Producto 5",
+      "price": 3000
+    },
+    {
+      "id": 30,
+      "name": "Producto 310",
+      "price": 3000
+    },
+    {
+      "id": 1728401755777,
+      "name": "Prueba again",
+      "price": 0
+    },
+    {
+      "id": 1728424775424,
+      "name": "Hello",
+      "price": 0
+    }
+  ]
+}
