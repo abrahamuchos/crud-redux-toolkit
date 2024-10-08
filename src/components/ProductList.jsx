@@ -14,7 +14,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addProduct, getProducts, updateProduct } from "../redux/productsSlice.js";
+import { addProduct, deleteProduct, getProducts, updateProduct } from "../redux/productsSlice.js";
 
 
 export default function ProductList() {
@@ -73,9 +73,22 @@ export default function ProductList() {
         console.error(e);
       })
   };
-  const handleDeleteProduct = () => {
-
+  /**
+   * Simulate delete
+   * @param {number} id - Product id
+   */
+  const handleDeleteProduct = (id) => {
+    dispatch(deleteProduct({id: id}))
+    axios.delete(`http://localhost:3001/products/${id}`)
+      .then(res => {
+        alert('Product was deleted');
+      })
+      .catch(e => {
+        alert('Ok Houston, we have a problem. Product did not deleted')
+        console.error(e);
+      })
   };
+
 
   return (
     <>
@@ -111,7 +124,9 @@ export default function ProductList() {
                     <button onClick={() => setEditedProduct({id: product.id, isEdited: true})}>
                       Editar
                     </button>
-                    <button>Eliminar</button>
+                    <button onClick={()=> handleDeleteProduct(product.id)}>
+                      Eliminar
+                    </button>
                   </div>
                 </>
 
